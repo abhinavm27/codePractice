@@ -88,3 +88,59 @@ public int listCompare(Node a1, Node a2) {
     }
     return res;
   }
+  
+  public Node reverseList(Node x){
+    Node curr=x;
+    Node prev=null;
+    Node next=null;
+    while(curr!=null) {
+      next=curr.next;
+      curr.next=prev;
+      prev=curr;
+      curr=next;
+    }
+    return prev;
+    
+  }
+  
+  public Node rearrangeList(Node x) {
+    /*
+    Input:  1 -> 2 -> 3 -> 4
+    Output: 1 -> 4 -> 2 -> 3
+
+    Input:  1 -> 2 -> 3 -> 4 -> 5
+    Output: 1 -> 5 -> 2 -> 4 -> 3 
+    */
+    Node slow = x;
+    Node fast = x.next;
+    while(fast!=null && fast.next!=null) {
+      slow = slow.next;
+      fast = fast.next.next;
+    }
+    Node revFirst = reverseList(slow.next);
+    slow.next = null;  //needs to cout off the fwd and bckwd lists
+    Node first = x;
+    Node second = revFirst;
+    Node res = null;
+    printList(first);
+    printList(second);
+    while(first!=null || second!=null) {
+      if(first!=null) {
+        if(res==null)
+          res= first;
+        else {
+          res.next=first;
+          res = res.next;
+        }
+        first= first.next;
+      }
+      if(second!=null) {
+        res.next = second;
+        res = res.next;
+
+        second=second.next;
+      }
+      
+    }
+    return x;
+  }
