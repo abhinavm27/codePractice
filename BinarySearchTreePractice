@@ -1,0 +1,53 @@
+  public boolean checkNodeinRange(BNode x,int low,int high) {
+    if(x.data>low && x.data<high) {
+      return true;
+    }
+    return false;
+  }
+  public int nodesInRange(BNode x,int low, int high, int count) {
+    /*
+        10
+      /    \
+    5       50
+   /       /  \
+ 1       40   100
+Range: [5, 45]
+Output:  2
+
+
+Input:
+        10
+      /    \
+    5       50
+   /       /  \
+ 1       40   100
+Range: [1, 45]
+Output:  3 
+    */
+    if(x == null)
+      return count;
+    
+    count = nodesInRange(x.left,low,high,count);
+    boolean inRange = checkNodeinRange(x,low,high);
+    if(inRange)
+      count+=1;
+    count = nodesInRange(x.right,low,high,count);
+    return count;
+    
+  }
+  
+  public int k_th_largest(BNode x,int k) {
+    
+    if(x == null || k==0) {
+      return k;
+    }
+    
+    k = k_th_largest(x.right,k);
+    k-=1;
+    if(k==0){
+      System.out.println(x.data);
+      return k;
+    }
+    k = k_th_largest(x.left,k);
+    return k;
+  }
