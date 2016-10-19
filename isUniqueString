@@ -1,0 +1,123 @@
+import java.io.*;
+import java.util.*;
+
+/*
+ * To execute Java, please define "static void main" on a class
+ * named Solution.
+ *
+ * If you need more classes, simply define them inline.
+ */
+
+class Solution {
+  
+  static boolean isUniqueASCII(String input) {
+    if(input.length()>256)
+      return false;
+    int checker = 0;
+    for(int i=0;i<input.length();i++) {
+      int c = input.charAt(i);
+      System.out.println(c);
+      System.out.println(1<<c);
+      
+      if((checker & (1<<c))>0)
+        return false;
+      checker = checker | (1<<c);
+    }
+    return true;
+    
+  }
+  
+  public static boolean isUniqueChars(String str) {
+    long checker1 = 0;
+    long checker2 = 0;
+    long checker3 = 0;
+    long checker4 = 0;
+    for (int i = 0; i < str.length(); ++i) {
+        int val = str.charAt(i);
+        int toCheck = val / 64;
+        val %= 64;
+      System.out.println(1L<<val);
+        switch (toCheck) {
+            case 0:
+                if ((checker1 & (1L << val)) > 0) {
+                    return false;
+                }
+                checker1 |= (1L << val);
+                break;
+            case 1:
+                if ((checker2 & (1L << val)) > 0) {
+                    return false;
+                }
+                checker2 |= (1L << val);
+                break;
+            case 2:
+                if ((checker3 & (1L << val)) > 0) {
+                    return false;
+                }
+                checker3 |= (1L << val);
+                break;
+            case 3:
+                if ((checker4 & (1L << val)) > 0) {
+                    return false;
+                }
+                checker4 |= (1L << val);
+                break;
+        }            
+    }return true;
+  }
+  
+  public static boolean isUnique(String str) {
+    int checker1 = 0;
+    int checker2 = 0;
+    int checker3 = 0;
+    int checker4 = 0;
+    for (int i = 0; i < str.length(); ++i) {
+        int val = str.charAt(i);
+        int toCheck = val / 32;
+        val %= 32;
+      System.out.println(1L<<val);
+        switch (toCheck) {
+            case 0:
+                if ((checker1 & (1 << val)) > 0) {
+                  return false;
+                  
+                }
+                checker1 |= (1 << val);
+                break;
+            case 1:
+                if ((checker2 & (1 << val)) > 0) {
+                    return false;
+                }
+                checker2 |= (1 << val);
+                break;
+            case 2:
+                if ((checker3 & (1 << val)) > 0) {
+                    return false;
+                }
+                checker3 |= (1 << val);
+                break;
+            case 3:
+                if ((checker4 & (1 << val)) > 0) {
+                    return false;
+                }
+                checker4 |= (1 << val);
+                break;
+        }            
+    }return true;
+  }
+  
+  public static void main(String[] args) {
+    ArrayList<String> strings = new ArrayList<String>();
+    strings.add("Hello, World!");
+    strings.add("Welcome to CoderPad.");
+    strings.add("This pad is running Java 8.");
+
+    for (String string : strings) {
+      System.out.println(string);
+    }
+    
+    System.out.println(isUnique("a b a"));
+    
+    
+  }
+}
