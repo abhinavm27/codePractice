@@ -1,0 +1,21 @@
+ public static Node commonAncestor(Node root, Node p, Node q) {
+    if(root==null) 
+      return null;
+    if(root==p || root == q)
+      return root;
+    boolean ispOnLeft = checkAvailable(root.left,p);
+    boolean isqOnLeft = checkAvailable(root.left,q);
+    if(ispOnLeft!=isqOnLeft)
+      return root;
+    Node commonSide = ispOnLeft?root.left:root.right;
+    return commonAncestor(commonSide,p,q);
+    
+  }
+  
+  public static boolean checkAvailable(Node root, Node n) {
+   if(root==null)
+     return false;
+   if(root==n)
+     return true;
+   return checkAvailable(root.left,n) || checkAvailable(root.right,n);
+  }
