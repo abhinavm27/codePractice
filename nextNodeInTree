@@ -1,0 +1,21 @@
+public static Node nextNode(Node n) {
+    if(n==null)
+      return null;
+    if(n.right!=null) {
+      //return left most node of right subtree
+     return getLeftNode(n.right);
+    
+    }
+    Node p = n.parent;
+    while(p!=null && p.left!=p) {
+      n =p;
+      p = p.parent;
+    }
+    return p;
+  }
+  
+  public static Node getLeftNode(Node n) {
+   while(n.left!=null)
+       n=n.left;
+     return n; 
+  }
