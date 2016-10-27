@@ -1,0 +1,88 @@
+public Node<K,V> {
+  K key;
+  V value;
+  Node<K,V> next;
+  Node<K,V>(K k, V v, Node<K,V> n) {
+    this.key = k;
+    this.value = v;
+    this.next = n;
+  }
+}
+
+public class HashMapCustom<K,V> {
+  Node<K,V>[] arr;
+  HashMapCustom<K,V>() {
+   arr = new Node[100]; 
+  }
+  
+  void put(K key, V value) {
+    if(k==null)
+      return;
+    int hashValue = hash(k);
+    curr = arr[hashValue];
+    temp = curr;
+    if(curr==null) {
+      Node<K,V> newNode = new Node<K,V>(key,value,null);
+      arr[hashValue] = newNode;
+    }
+    else{
+      boolean inserted = false;
+      while(curr!=null) {
+        if(curr.key == newNode.key) {
+          curr.value = newNode.value;
+          inserted = true;
+        }
+        curr = curr.next;
+      }
+      if(inserted == false) {
+        Node<K,V> newNode = new Node<K,V>(key,value,null);
+        newNode.next = temp;
+        arr[hash] = newNode;
+      }
+    }
+  }
+  
+  public V get(K key) {
+    int hashValue = hash(key);
+    if(arr[hashValue]==null)
+      return null;
+    else {
+      curr = arr[hashValue];
+      while(curr!=null) {
+        if(curr.key == key)
+         return curr.value;
+        else {
+        curr = curr.next; 
+        }
+      }
+      return null;
+    }
+  }
+  
+  public void delete(K key) {
+   int hashValue = hash(key);
+    if(arr[hashValue]==null)
+      return;
+    curr = arr[hashValue];
+    prev = null;
+      while(curr!=null) {
+        if(curr.key == key) {
+          if(prev==null) {
+            curr = curr.next;
+            arr[hashValue] = curr;
+            return;
+          }
+          else {
+            prev.next = curr.next;
+            return;
+          }
+        }
+        else { 
+          prev = curr;
+          curr = curr.next; 
+        }
+        
+      }
+  }
+  
+}
