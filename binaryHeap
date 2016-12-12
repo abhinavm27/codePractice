@@ -1,0 +1,101 @@
+import java.io.*;
+import java.util.*;
+
+/*
+ * To execute Java, please define "static void main" on a class
+ * named Solution.
+ *
+ * If you need more classes, simply define them inline.
+ */
+class ListNode {
+      public int val;
+      public ListNode left;
+      public ListNode right;
+      ListNode(int x) { val = x; left = null; right =null; }
+  }
+
+class Solution {
+  List<Integer> heapArray;
+  
+  Solution(int capacity) {
+    heapArray = new ArrayList<Integer>();
+  }
+  
+  
+  public void shiftUp(int x) {
+    if(x<=0)
+      return;
+    int currIndex= x;
+    int parentIndex = (x-1)/2;
+    if(heapArray.get(currIndex)>heapArray.get(parentIndex)) {
+      int temp =  heapArray.get(currIndex);
+      heapArray.set(currIndex,heapArray.get(parentIndex));
+      heapArray.set(parentIndex,temp);
+    }
+    shiftUp(parentIndex);
+  }
+  
+  public void insert(int x) {
+    heapArray.add(x);
+    int currIndex = heapArray.size()-1;
+    
+    shiftUp(currIndex);
+    //System.out.println("inserted " + x);
+  }
+  public void shiftDown(int x) {
+    int parentIndex = x;
+    int leftChildIndex = (2*x)+1;
+    int rightChildIndex = (2*x)+2;
+    int currSize = heapArray.size()-1;    
+    
+    if(leftChildIndex<currSize) {
+      int max=leftChildIndex;
+      if(rightChildIndex<currSize) {
+       max=heapArray.get(leftChildIndex)>heapArray.get(rightChildIndex)?max:rightChildIndex; 
+      }
+      if(heapArray.get(max)>heapArray.get(parentIndex)) {
+        int temp = heapArray.get(max);
+        heapArray.set(max,heapArray.get(parentIndex));
+        heapArray.set(parentIndex,temp);
+        shiftDown(max);
+      }
+    }
+
+  }
+  public int pop() {
+    if(heapArray==null)
+      return -1;
+    if(heapArray.size()==1){
+      int val = heapArray.remove(0);
+      return val;
+    }
+    int res = heapArray.get(0);
+    int lastIndex = heapArray.size()-1;
+    int lastValue = heapArray.get(lastIndex);
+    heapArray.set(0,lastValue);
+    heapArray.remove(lastIndex);
+    shiftDown(0);
+    return res;
+  }
+ 
+  
+  public static void main(String[] args) {
+    ArrayList<String> strings = new ArrayList<String>();
+    strings.add("Hello, World!");
+    strings.add("Welcome to CoderPad.");
+    strings.add("This pad is running Java 8.");
+
+    Solution sol = new Solution(10);
+    sol.insert(1);
+    sol.insert(2);
+    sol.insert(7);
+    
+    for (int x : sol.heapArray) {
+      System.out.println(x);
+    }
+    System.out.println(sol.pop());
+        for (int x : sol.heapArray) {
+      System.out.println(x);
+    }
+  }
+}
